@@ -1,6 +1,8 @@
 # Echange365-public-webmail-guard
 PowerShell rules for Exchange Online that flag and banner emails from public webmail domains (Gmail, Yahoo, Outlook, 280+ domains).
 The banner is french in the script. You can change it to your own langage
+David ANDE & Claude
+
 # Exchange Webmail Guard
 
 > Règles de transport Exchange Online pour avertir les utilisateurs  
