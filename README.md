@@ -58,7 +58,3 @@ Connect-ExchangeOnline -UserPrincipalName admin@votredomaine.com
 # 3. Se déconnecter
 Disconnect-ExchangeOnline -Confirm:$false
 ```
-
----
-
-## 📁 Structure du dépôt
