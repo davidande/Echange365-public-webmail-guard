@@ -18,7 +18,7 @@ qui insèrent automatiquement une bannière d'avertissement visuelle
 en tête de tout message provenant d'un domaine webmail grand public  
 (Gmail, Outlook, Yahoo, FAI, opérateurs internationaux, etc.).
 
-Il couvre **~280 domaines** répartis sur 6 continents et est conçu  
+Il couvre **~280 domaines Webmails Grand Public** répartis sur 6 continents et est conçu  
 pour sensibiliser les utilisateurs aux risques de **phishing**,  
 d'**usurpation d'identité** et de **pièces jointes malveillantes**.
 
