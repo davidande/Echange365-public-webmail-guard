@@ -1,47 +1,44 @@
-# Echange365-public-webmail-guard
-PowerShell rules for Exchange Online that flag and banner emails from public webmail domains (Gmail, Yahoo, Outlook, 280+ domains).
-The banner is french in the script. You can change it to your own langage
-
-David ANDE & Claude
-
 # Exchange Webmail Guard
 
-> Règles de transport Exchange Online pour avertir les utilisateurs  
-> de tout e-mail entrant depuis un domaine webmail grand public.
+> PowerShell deployment of Exchange Online transport rules  
+> that warn users of any incoming email from a public webmail domain.
+
+Developed by **David ANDE** & **Claude**
 
 ---
 
 ## 📋 Description
 
-Ce projet déploie deux règles de transport **Microsoft Exchange Online**  
-qui insèrent automatiquement une bannière d'avertissement visuelle  
-en tête de tout message provenant d'un domaine webmail grand public  
-(Gmail, Outlook, Yahoo, FAI, opérateurs internationaux, etc.).
+This project deploys two **Microsoft Exchange Online** transport rules
+that automatically insert a visual warning banner at the top of any
+message sent from a public webmail domain
+(Gmail, Outlook, Yahoo, ISPs, international carriers, etc.).
 
-Il couvre **~280 domaines Webmails Grand Public** répartis sur 6 continents et est conçu  
-pour sensibiliser les utilisateurs aux risques de **phishing**,  
-d'**usurpation d'identité** et de **pièces jointes malveillantes**.
-
----
-
-## ✨ Fonctionnalités
-
-- 🔴 Bannière HTML rouge insérée en tête du message
-- 🌍 ~280 domaines webmail couverts (Google, Microsoft, Yahoo, FAI France/Europe/Monde...)
-- ⚡ Déploiement en une seule exécution PowerShell
-- 🔒 Compatible DKIM / ARC — pas de rejet des messages légitimes
-- 🔄 Exception automatique sur les transferts (en-tête `Auto-Submitted`)
-- 🏷️ Flag technique `X-Webmail-Sender-Warning: true` sur chaque message concerné
-- 📋 Deux règles complémentaires pour contourner la limite de 8 192 caractères d'Exchange Online
+It covers **~280 domains** across 6 continents and is designed
+to raise user awareness of **phishing**, **identity spoofing**
+and **malicious attachment** risks.
 
 ---
 
-## 🛠️ Prérequis
+## ✨ Features
 
-- Microsoft 365 avec Exchange Online
-- Rôle **Administrateur Exchange** ou **Administrateur global**
-- PowerShell 5.1+ ou PowerShell 7+
-- Module `ExchangeOnlineManagement`
+- 🔴 Red HTML warning banner inserted at the top of the message
+- 🌍 ~280 webmail domains covered (Google, Microsoft, Yahoo, ISPs across France/Europe/World...)
+- 🇫🇷 🇬🇧 Banner available in **French** or **English** via parameter
+- ⚡ Deployed in a single PowerShell execution
+- 🔒 DKIM / ARC compatible — no rejection of legitimate messages
+- 🔄 Automatic exception for auto-forwarded messages (`Auto-Submitted` header)
+- 🏷️ Technical flag `X-Webmail-Sender-Warning: true` added to every matched message
+- 📋 Two complementary rules to work around Exchange's 8,192-character limit
+
+---
+
+## 🛠️ Requirements
+
+- Microsoft 365 with Exchange Online
+- **Exchange Administrator** or **Global Administrator** role
+- PowerShell 5.1+ or PowerShell 7+
+- `ExchangeOnlineManagement` module
 
 ```powershell
 Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser -Force
@@ -49,15 +46,72 @@ Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser -Force
 
 ---
 
-## 🚀 Déploiement
+## 🚀 Deployment
 
 ```powershell
-# 1. Se connecter à Exchange Online
-Connect-ExchangeOnline -UserPrincipalName admin@votredomaine.com
+# 1. Connect to Exchange Online
+Connect-ExchangeOnline -UserPrincipalName admin@yourdomain.com
 
-# 2. Exécuter le script
-.\Pubweb-guard.ps1
+# 2a. Deploy with French banner (default)
+.\PubWeb-Guard.ps1
 
-# 3. Se déconnecter
+# 2b. Deploy with English banner
+.\PubWeb-Guard.ps1 -Langue EN
+
+# 3. Disconnect
 Disconnect-ExchangeOnline -Confirm:$false
 ```
+
+> **Note:** If an invalid value is passed to `-Langue`, PowerShell will
+> block execution and display the list of accepted values (`FR`, `EN`).
+
+---
+
+## 🌐 Banner preview
+
+**French**
+> ⚠️ **Avertissement – Expéditeur webmail grand public**
+> Ce message a été envoyé depuis une adresse e-mail personnelle (Gmail, Outlook, Yahoo, etc.).
+> - Vérifiez l'identité de l'expéditeur avant de répondre.
+> - Ne cliquez pas sur des liens suspects.
+> - N'ouvrez pas les pièces jointes inattendues.
+
+**English**
+> ⚠️ **Warning – Public webmail sender**
+> This message was sent from a personal e-mail address (Gmail, Outlook, Yahoo, etc.).
+> - Verify the sender's identity before replying.
+> - Do not click on suspicious links.
+> - Do not open unexpected attachments.
+
+---
+
+## 🧪 Verification
+
+```powershell
+# List rules and their status
+Get-TransportRule | Where-Object { $_.Name -like '*webmail*' } |
+    Select-Object Name, State, Priority, Mode
+```
+
+---
+
+## ⚠️ Important notes
+
+| Topic | Detail |
+|---|---|
+| Propagation delay | Allow 15 to 30 minutes after deployment before rules become active |
+| False positives | Use `-ExceptIfFrom` to whitelist trusted senders on public domains |
+| DKIM | The banner invalidates the original DKIM signature — mitigated by Exchange Online's native ARC |
+| Legacy mail clients | The `Wrap` fallback encapsulates and preserves the original message |
+
+---
+
+## 📄 License
+
+MIT — Free to use, modify and distribute.
+
+---
+
+## 👤 Author
+
+**David ANDE** & **Claude**
