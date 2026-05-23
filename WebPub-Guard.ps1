@@ -1,15 +1,41 @@
-$banniere = "<div style='background-color:#FDEAEA;border-left:4px solid #C0392B;" +
-            "padding:12px 16px;margin-bottom:12px;font-family:Arial,sans-serif;font-size:13px;'>" +
-            "<div style='margin-bottom:6px;'>" +
-            "<strong style='color:#7B1C1C;'>&#9888;&#65039; Avertissement &ndash; " +
-            "Exp&eacute;diteur webmail grand public</strong></div>" +
-            "<p style='color:#7B1C1C;margin:0 0 6px 0;'>Ce message a &eacute;t&eacute; envoy&eacute; " +
-            "depuis une adresse e-mail personnelle (Gmail, Outlook, Yahoo, etc.).</p>" +
-            "<ul style='color:#7B1C1C;margin:0;padding-left:18px;'>" +
-            "<li>V&eacute;rifiez l&apos;identit&eacute; de l&apos;exp&eacute;diteur avant de r&eacute;pondre.</li>" +
-            "<li>Ne cliquez pas sur des liens suspects.</li>" +
-            "<li>N&apos;ouvrez pas les pi&egrave;ces jointes inattendues.</li>" +
-            "</ul></div>"
+# ============================================================
+#  PARAMETRE DE LANGUE  :  "FR" ou "EN"
+# ============================================================
+param(
+    [ValidateSet("FR","EN")]
+    [string]$Langue = "FR"
+)
+
+# ============================================================
+#  BANNIERE
+# ============================================================
+if ($Langue -eq "EN") {
+    $banniere = "<div style='background-color:#FDEAEA;border-left:4px solid #C0392B;" +
+                "padding:12px 16px;margin-bottom:12px;font-family:Arial,sans-serif;font-size:13px;'>" +
+                "<div style='margin-bottom:6px;'>" +
+                "<strong style='color:#7B1C1C;'>&#9888;&#65039; Warning &ndash; " +
+                "Public webmail sender</strong></div>" +
+                "<p style='color:#7B1C1C;margin:0 0 6px 0;'>This message was sent from a personal " +
+                "e-mail address (Gmail, Outlook, Yahoo, etc.).</p>" +
+                "<ul style='color:#7B1C1C;margin:0;padding-left:18px;'>" +
+                "<li>Verify the sender&apos;s identity before replying.</li>" +
+                "<li>Do not click on suspicious links.</li>" +
+                "<li>Do not open unexpected attachments.</li>" +
+                "</ul></div>"
+} else {
+    $banniere = "<div style='background-color:#FDEAEA;border-left:4px solid #C0392B;" +
+                "padding:12px 16px;margin-bottom:12px;font-family:Arial,sans-serif;font-size:13px;'>" +
+                "<div style='margin-bottom:6px;'>" +
+                "<strong style='color:#7B1C1C;'>&#9888;&#65039; Avertissement &ndash; " +
+                "Exp&eacute;diteur webmail grand public</strong></div>" +
+                "<p style='color:#7B1C1C;margin:0 0 6px 0;'>Ce message a &eacute;t&eacute; envoy&eacute; " +
+                "depuis une adresse e-mail personnelle (Gmail, Outlook, Yahoo, etc.).</p>" +
+                "<ul style='color:#7B1C1C;margin:0;padding-left:18px;'>" +
+                "<li>V&eacute;rifiez l&apos;identit&eacute; de l&apos;exp&eacute;diteur avant de r&eacute;pondre.</li>" +
+                "<li>Ne cliquez pas sur des liens suspects.</li>" +
+                "<li>N&apos;ouvrez pas les pi&egrave;ces jointes inattendues.</li>" +
+                "</ul></div>"
+}
 
 # ============================================================
 #  REGLE 1 — Google, Microsoft, Yahoo, Apple, AOL, France, UK,
