@@ -2,9 +2,6 @@
 
 > PowerShell deployment of Exchange Online transport rules  
 > that warn users of any incoming email from a public webmail domain.
-
-Developed by **David ANDE** & **Claude**
-
 ---
 
 ## 📋 Description
